@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Compra y Venta de Vehiculos</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="assets/img/carro-deportivo.png" />
+    <!-- Bootstrap icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+    <!-- Core theme CSS (includes Bootstrap) -->
+    <link href="css/styles.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/stylesnav.css">
+    <!-- Boxicons CSS -->
+    <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+    <link rel='stylesheet' href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="sidebar close">
+        <header>
+            <div class="image-text">
+                <span class="image">
+                    <a href="index.php"><img src="assets/img/carro-deportivo.png" href="index.php"></a>
+                </span>
+                <div class="text logo-text">
+                    <span class="name">AutoMarket</span>
+                    <span class="profession">Buying and Selling Cars</span>
+                </div>
+            </div>
+            <i class='bx bx-chevron-right toggle'></i>
+        </header>
+        <div class="menu-bar">
+            <div class="menu">
+                <li class="search-box">
+                    <i class='bx bx-search icon'></i>
+                    <input type="text" placeholder=" -> Search..."  >
+                </li>
+                <ul class="menu-links">
+                    <li class="nav-link">
+                        <a href="#">
+                            <i class='bx bx-home-alt icon'></i>
+                            <span class="text nav-text">My Home</span>
+                        </a>
+                    </li>
+                    <!-- Admin link visible only to admin users -->
+                    <?php if ($is_admin): ?>
+                        <li class="nav-link">
+                            <a href="categoria.php">
+                                <i class='bx bx-bell icon'></i>
+                                <span class="text nav-text">Admin</span>
+                            </a>
+                        </li>
+                    <?php endif; ?>
+                    <li class="nav-link">
+                        <a href="Carrito.php">
+                            <i class='bx bx-cart icon'></i>
+                            <span class="text nav-text">Shopping cart</span>
+                        </a>
+                    </li>
+                    <li class="nav-link">
+                        <a href="shop.php">
+                            <i class='bx bx-grid-alt icon'></i>
+                            <span class="text nav-text">Catalogue</span>
+                        </a>
+                    </li>
+                    <li class="nav-link">
+                        <a type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+                            <i class='bx bx-user icon'></i>
+                            <span class="text nav-text">Contact</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="bottom-content">
+                <?php if ($is_logged_in): ?>
+                    <li class="nav-link">
+                        <a href="logout.php">
+                            <i class='bx bx-log-out icon'></i>
+                            <span class="text nav-text">Logout</span>
+                        </a>
+                    </li>
+                    <li class="nav-link">
+                        <a href="#">
+                            <i class='bx bx-user icon'></i>
+                            <span class="text nav-text"><?php echo htmlspecialchars($email); ?></span>
+                        </a>
+                    </li>
+                <?php else: ?>
+                    <li class="nav-link">
+                        <a href="login/index.html">
+                            <i class='bx bx-log-in icon'></i>
+                            <span class="text nav-text">Log in</span>
+                        </a>
+                    </li>
+                <?php endif; ?>
+                <li class="mode">
+                    <div class="sun-moon">
+                        <i class='bx bx-moon icon moon'></i>
+                        <i class='bx bx-sun icon sun'></i>
+                    </div>
+                    <span class="mode-text text">Dark mode</span>
+                    <div class="toggle-switch">
+                        <span class="switch"></span>
+                    </div>
+                </li>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <header class="bg-dark py-5" style="background-image: url('assets/img/fondo_home_page2.jpg'); background-size: cover; background-position: center;">
+        <div class="container px-4 px-lg-5 my-5">
+            <div class="text-center text-white">
+                <h1 class="display-4 fw-bolder">AutoMarket</h1>
+                <div>
+                    <section>
+                        <p class="lead fw-normal text-white-50 mb-0"></p>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Offcanvas -->
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+        <div class="offcanvas-header">
+            <h5 id="offcanvasRightLabel">Contacto</h5>
+            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <form action="index.php" method="post">
+                <h2>Envíanos un Mensaje</h2>
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Nombre" name="name" id="name" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" class="form-control" placeholder="Correo Electrónico" name="email" id="email" required>
+                </div>
+                <div class="form-group">
+                    <textarea class="form-control" placeholder="Tu mensaje aquí..." name="message" id="message" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Enviar</button>
+                <div class="contact-social">
+                    <h3>Síguenos</h3>
+                    <nav>
+                        <a href="#" aria-label="YouTube" class="social-icon"><i class="fab fa-youtube"></i></a>
+                        <a href="#" aria-label="TikTok" class="social-icon"><i class="fab fa-tiktok"></i></a>
+                        <a href="#" aria-label="Instagram" class="social-icon"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="Twitter" class="social-icon"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="WhatsApp" class="social-icon"><i class="fab fa-whatsapp"></i></a>
+                    </nav>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Bootstrap core JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Core theme JS -->
+    <script src="js/scripts.js"></script>
+    <script src="js/script.js"></script>
+    <script>
+        var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'));
+        var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
+            return new bootstrap.Popover(popoverTriggerEl);
+        });
+    </script>
+<div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+  <div class="carousel-indicators">
+    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+  </div>
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="assets/img/Carrusel1.jpg" class="d-block w-100" alt="...">
+      <div class="carousel-caption d-none d-md-block">
+        <h5>First slide label</h5>
+        <p>Some representative placeholder content for the first slide.</p>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <img src="assets/img/Carrusel2.jpg" class="d-block w-100" alt="...">
+      <div class="carousel-caption d-none d-md-block">
+        <h5>Second slide label</h5>
+        <p>Some representative placeholder content for the second slide.</p>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <img src="assets/img/Carrusel3.jpg" class="d-block w-100" alt="...">
+      <div class="carousel-caption d-none d-md-block">
+        <h5>Third slide label</h5>
+        <p>Some representative placeholder content for the third slide.</p>
+      </div>
+    </div>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+<footer class="py-5 bg-dark" style="background-image: url('assets/img/fondo_home_page.jpg'); background-size: cover; background-position: center;">
+    <div class="container">
+        <p class="m-0 text-center text-white">Copyright &copy; Your Website 2023</p>
+        <br><br>
+        <!-- Google Maps Integration -->
+        <div class="map-container">
+            <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d7542.024859922501!2d-98.1486749!3d19.0631911!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85cfc1c9a30530ab%3A0xefd33e2f1a6ca5a2!2sUniversidad%20Tecnol%C3%B3gica%20de%20Puebla!5e0!3m2!1ses!2smx!4v1723504293891!5m2!1ses!2smx" 
+                width="100%" 
+                height="300" 
+                style="border:0;" 
+                allowfullscreen="" 
+                loading="lazy" 
+                referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+        </div>
+    </div>
+</footer>
+
+<!-- Bootstrap core JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Core theme JS -->
+<script src="js/scripts.js"></script>
+<script src="js/script.js"></script>
+<script>
+    var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'));
+    var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
+        return new bootstrap.Popover(popoverTriggerEl);
+    });
+</script>
