@@ -1,0 +1,54 @@
+<?php
+require 'vendor/autoload.php'; // Asegúrate de tener el autoload de Composer
+
+use PayPalCheckoutSdk\Core\PayPalHttpClient;
+use PayPalCheckoutSdk\Core\SandboxEnvironment;
+use PayPalCheckoutSdk\Orders\OrdersGetRequest;
+
+$clientId = 'TU_CLIENT_ID';
+$clientSecret = 'TU_CLIENT_SECRET';
+
+$environment = new SandboxEnvironment($clientId, $clientSecret);
+$client = new PayPalHttpClient($environment);
+
+// ID del pedido recibido desde PayPal
+$orderId = $_GET['orderId'];
+
+$request = new OrdersGetRequest($orderId);
+
+try {
+    $response = $client->execute($request);
+    $order = $response->result;
+
+    // Verifica el estado del pedido y maneja el resultado
+    if ($order->status == 'COMPLETED') {
+        // El pago fue exitoso
+        echo "Pago completado exitosamente.";
+    } else {
+        // El pago no fue completado
+        echo "El pago no se completó.";
+    }
+} catch (Exception $e) {
+    echo "Error: " . $e->getMessage();
+}
+?>
+
+
+<?php
+// Suponiendo que recibes datos del webhook en $requestBody
+$requestBody = file_get_contents('php://input');
+
+// La secret key es necesaria para verificar la firma del webhook
+$paypalSignature = $_SERVER['HTTP_PAYPAL_TRANSMISSION_SIG'];
+$expectedSignature = 'TU_WEBHOOK_SECRET'; // Obtén esto desde la configuración de PayPal
+
+// Compara la firma recibida con la esperada
+if ($paypalSignature == $expectedSignature) {
+    // La firma es válida, procesa el webhook
+    $data = json_decode($requestBody, true);
+    // Maneja la notificación
+} else {
+    // Firma no válida
+    http_response_code(400);
+}
+?>
